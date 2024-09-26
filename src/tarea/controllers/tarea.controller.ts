@@ -22,28 +22,28 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class TareaController {
   constructor(private readonly tareaService: TareaService) {}
 
-  @Post('add')
-  create(@Body() createTareaDto: CreateTareaDto) {
-    return this.tareaService.create(createTareaDto);
-  }
+  // @Post('add')
+  // create(@Body() createTareaDto: CreateTareaDto) {
+  //   return this.tareaService.create(createTareaDto);
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tareaService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.tareaService.findOne(+id);
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTareaDto: UpdateTareaDto) {
-    return this.tareaService.update(+id, updateTareaDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateTareaDto: UpdateTareaDto) {
+  //   return this.tareaService.update(+id, updateTareaDto);
+  // }
 
   // @Delete()
   // remove(@Body('id') id: number) {
   //   return this.tareaService.remove(+id);
   // }
 
-  @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.tareaService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: number) {
+  //   return this.tareaService.remove(+id);
+  // }
 }

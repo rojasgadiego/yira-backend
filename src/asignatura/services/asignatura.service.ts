@@ -13,45 +13,45 @@ export class AsignaturaService {
     private readonly usuarioService: UsuarioService,
   ) {}
 
-  async create(createAsignaturaDto: CreateAsignaturaDto) {
-    const { userEmail, ...asignaturaDetail } = createAsignaturaDto;
-    const usuario = await this.usuarioService.findOne(userEmail);
-    if (usuario) {
-      const newAsignatura = this.asignaturaRepository.create(asignaturaDetail);
-      newAsignatura.usuario = usuario;
-      await this.asignaturaRepository.save(newAsignatura);
-      return newAsignatura;
-    }
-    throw new NotFoundException('Usuario not found');
-  }
+  // async create(createAsignaturaDto: CreateAsignaturaDto) {
+  //   const { userEmail, ...asignaturaDetail } = createAsignaturaDto;
+  //   const usuario = await this.usuarioService.findOne(userEmail);
+  //   if (usuario) {
+  //     const newAsignatura = this.asignaturaRepository.create(asignaturaDetail);
+  //     newAsignatura.usuario = usuario;
+  //     await this.asignaturaRepository.save(newAsignatura);
+  //     return newAsignatura;
+  //   }
+  //   throw new NotFoundException('Usuario not found');
+  // }
 
-  findAll() {
-    return this.asignaturaRepository.find();
-  }
+  // findAll() {
+  //   return this.asignaturaRepository.find();
+  // }
 
-  async findOne(id: number) {
-    const asignatura = await this.asignaturaRepository.findOne({
-      where: { id },
-      relations: ['tareas'],
-    });
-    if (!asignatura) throw new NotFoundException('Asignatura not found');
-    return asignatura;
-  }
+  // async findOne(id: number) {
+  //   const asignatura = await this.asignaturaRepository.findOne({
+  //     where: { id },
+  //     relations: ['tareas'],
+  //   });
+  //   if (!asignatura) throw new NotFoundException('Asignatura not found');
+  //   return asignatura;
+  // }
 
-  async getTareas(id: number) {
-    const asignatura = await this.findOne(id);
-    if (!asignatura) throw new NotFoundException('Asignatura not found');
-    return asignatura.tareas;
-  }
+  // async getTareas(id: number) {
+  //   const asignatura = await this.findOne(id);
+  //   if (!asignatura) throw new NotFoundException('Asignatura not found');
+  //   return asignatura.tareas;
+  // }
 
-  async remove(id: number) {
-    const asignatura = await this.findOne(id);
-    if (!asignatura) throw new NotFoundException('Asignatura not found');
-    try {
-      this.asignaturaRepository.remove(asignatura);
-      return asignatura;
-    } catch (error) {}
-  }
+  // async remove(id: number) {
+  //   const asignatura = await this.findOne(id);
+  //   if (!asignatura) throw new NotFoundException('Asignatura not found');
+  //   try {
+  //     this.asignaturaRepository.remove(asignatura);
+  //     return asignatura;
+  //   } catch (error) {}
+  // }
 
   // update(id: number, updateAsignaturaDto: UpdateAsignaturaDto) {
   //   return `This action updates a #${id} asignatura`;

@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { TableroService } from './tablero.service';
+import { TableroService } from '../services/tablero.service';
 
 @Controller('tablero')
 export class TableroController {

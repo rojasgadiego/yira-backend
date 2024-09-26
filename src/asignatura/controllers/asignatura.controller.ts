@@ -20,28 +20,28 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class AsignaturaController {
   constructor(private readonly asignaturaService: AsignaturaService) {}
 
-  @Post('add')
-  create(@Body() createAsignaturaDto: CreateAsignaturaDto) {
-    return this.asignaturaService.create(createAsignaturaDto);
-  }
+  // @Post('add')
+  // create(@Body() createAsignaturaDto: CreateAsignaturaDto) {
+  //   return this.asignaturaService.create(createAsignaturaDto);
+  // }
 
-  @Get('find/all')
-  findAll() {
-    return this.asignaturaService.findAll();
-  }
+  // @Get('find/all')
+  // findAll() {
+  //   return this.asignaturaService.findAll();
+  // }
 
-  @Get('/find/:id')
-  findOne(@Param('id') id: number) {
-    return this.asignaturaService.findOne(id);
-  }
+  // @Get('/find/:id')
+  // findOne(@Param('id') id: number) {
+  //   return this.asignaturaService.findOne(id);
+  // }
 
-  @Get(':id/tareas')
-  findTareasbyAsignatura(@Param('id') id: number) {
-    return this.asignaturaService.getTareas(id);
-  }
+  // @Get(':id/tareas')
+  // findTareasbyAsignatura(@Param('id') id: number) {
+  //   return this.asignaturaService.getTareas(id);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.asignaturaService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: number) {
+  //   return this.asignaturaService.remove(+id);
+  // }
 }

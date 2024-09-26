@@ -11,18 +11,16 @@ import {
 
 @Entity()
 export class Usuario {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('text')
-  fullName?: string;
+  name?: string;
 
   @Column('text', { unique: true })
   email: string;
 
-  @Column('text', {
-    select: false,
-  })
+  @Column('text')
   password: string;
 
   @OneToMany(() => Asignatura, (asignatura) => asignatura.usuario, {

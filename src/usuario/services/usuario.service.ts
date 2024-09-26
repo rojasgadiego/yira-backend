@@ -21,7 +21,7 @@ export class UsuarioService {
     return this.usuarioRepository.save(newUser);
   }
 
-  findAll() {
+  async findAll() {
     return this.usuarioRepository.find();
   }
 
@@ -38,17 +38,16 @@ export class UsuarioService {
       where: {
         email,
       },
-      select: { password: true, fullName: true, email: true },
     });
   }
 
-  async getAsignaturas(email: string) {
-    const usuario = await this.usuarioRepository.findOne({
-      where: { email },
-      relations: ['asignaturas'],
-    });
-    if (!usuario) throw new NotFoundException('usuario not found');
-    const { asignaturas } = usuario;
-    return asignaturas;
-  }
+  // async getAsignaturas(email: string) {
+  //   const usuario = await this.usuarioRepository.findOne({
+  //     where: { email },
+  //     relations: ['asignaturas'],
+  //   });
+  //   if (!usuario) throw new NotFoundException('usuario not found');
+  //   const { asignaturas } = usuario;
+  //   return asignaturas;
+  // }
 }

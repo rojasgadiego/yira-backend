@@ -19,48 +19,48 @@ export class TareaService {
     private readonly asignaturaService: AsignaturaService,
   ) {}
 
-  async create(createTareaDto: CreateTareaDto) {
-    const { idAsignatura, ...tareadetail } = createTareaDto;
-    const asignatura = await this.asignaturaService.findOne(idAsignatura);
-    if (asignatura) {
-      const newTartea = this.tareaRepository.create(tareadetail);
-      newTartea.asignatura = asignatura;
-      await this.tareaRepository.save(newTartea);
-      return newTartea;
-    }
-    throw new BadRequestException();
-  }
+  // async create(createTareaDto: CreateTareaDto) {
+  //   const { idAsignatura, ...tareadetail } = createTareaDto;
+  //   const asignatura = await this.asignaturaService.findOne(idAsignatura);
+  //   if (asignatura) {
+  //     const newTartea = this.tareaRepository.create(tareadetail);
+  //     newTartea.asignatura = asignatura;
+  //     await this.tareaRepository.save(newTartea);
+  //     return newTartea;
+  //   }
+  //   throw new BadRequestException();
+  // }
 
-  findAll() {
-    return this.tareaRepository.find();
-  }
+  // findAll() {
+  //   return this.tareaRepository.find();
+  // }
 
-  async findOne(id: number) {
-    const tarea = await this.tareaRepository.findOne({
-      where: { id },
-    });
-    if (!tarea) throw new NotFoundException('Tarea not found');
-    return tarea;
-  }
+  // async findOne(id: number) {
+  //   const tarea = await this.tareaRepository.findOne({
+  //     where: { id },
+  //   });
+  //   if (!tarea) throw new NotFoundException('Tarea not found');
+  //   return tarea;
+  // }
 
-  async update(id: number, updateTareaDto: UpdateTareaDto) {
-    const tarea = await this.tareaRepository.preload({
-      id: id,
-      ...updateTareaDto,
-    });
-    if (!tarea) throw new NotFoundException(`Tarea whit id: ${id} not found`);
-    try {
-      await this.tareaRepository.save(tarea);
-      return tarea;
-    } catch (error) {
-      return error;
-    }
-  }
+  // async update(id: number, updateTareaDto: UpdateTareaDto) {
+  //   const tarea = await this.tareaRepository.preload({
+  //     id: id,
+  //     ...updateTareaDto,
+  //   });
+  //   if (!tarea) throw new NotFoundException(`Tarea whit id: ${id} not found`);
+  //   try {
+  //     await this.tareaRepository.save(tarea);
+  //     return tarea;
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // }
 
-  async remove(id: number) {
-    const tarea = await this.findOne(id);
-    if (!tarea) throw new NotFoundException('Tarea not found');
-    this.tareaRepository.remove(tarea);
-    return tarea;
-  }
+  // async remove(id: number) {
+  //   const tarea = await this.findOne(id);
+  //   if (!tarea) throw new NotFoundException('Tarea not found');
+  //   this.tareaRepository.remove(tarea);
+  //   return tarea;
+  // }
 }

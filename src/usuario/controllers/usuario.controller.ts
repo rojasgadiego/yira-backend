@@ -31,10 +31,10 @@ export class UsuarioController {
     return this.usuarioService.findOne(email);
   }
 
-  @Get(':email/asignaturas')
-  findAsignaturas(@Param('email') email: string) {
-    return this.usuarioService.getAsignaturas(email);
-  }
+  // @Get(':email/asignaturas')
+  // findAsignaturas(@Param('email') email: string) {
+  //   return this.usuarioService.getAsignaturas(email);
+  // }
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {

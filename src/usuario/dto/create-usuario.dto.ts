@@ -2,7 +2,7 @@ import { IsEmail, IsString } from 'class-validator';
 
 export class CreateUsuarioDto {
   @IsString()
-  fullName: string;
+  name: string;
 
   @IsEmail()
   email: string;

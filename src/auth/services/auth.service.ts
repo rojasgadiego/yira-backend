@@ -1,36 +1,34 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  Injectable,
-  BadRequestException,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable, BadRequestException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { LoginUserDto, CreateUserDto } from '../dto/index';
 import { JwtService } from '@nestjs/jwt';
+import { UsuarioService } from 'src/usuario/services/usuario.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(Usuario)
-    private readonly userRepository: Repository<Usuario>,
+    private usuarioService: UsuarioService,
     private readonly JwtService: JwtService,
   ) {}
 
   async register(createUserDto: CreateUserDto) {
     try {
-      const { password, ...userData } = createUserDto;
-      const usuario = this.userRepository.create({
-        ...userData,
+      const { password, name, email } = createUserDto;
+
+      const user = await this.usuarioService.findByEmail(email);
+
+      if (user)
+        return {
+          statusCode: HttpStatus.CONFLICT,
+          error: 'E-Mail already exists',
+        };
+
+      await this.usuarioService.createUser({
+        name,
+        email,
         password: bcrypt.hashSync(password, 10),
       });
-      await this.userRepository.save(usuario);
-      delete usuario.password;
-      const { ...userdetail } = usuario;
-      return { ...userdetail, token: this.getJwtToken({ id: usuario.id }) };
+      return { statusCode: HttpStatus.CREATED, error: null };
     } catch (error) {
       throw new BadRequestException(error.detail);
     }
@@ -38,22 +36,33 @@ export class AuthService {
 
   async login(loginUserDto: LoginUserDto) {
     const { password, email } = loginUserDto;
-    const user = await this.userRepository.findOne({
-      where: { email },
-      select: { email: true, password: true, id: true },
-    });
 
-    if (!user) throw new UnauthorizedException('Credentials are not valid');
+    const user = await this.usuarioService.findByEmail(email);
+
+    if (!user)
+      return {
+        statusCode: HttpStatus.UNAUTHORIZED,
+        error: 'Credentials are not valid',
+        user: null,
+      };
 
     if (!bcrypt.compareSync(password, user.password))
-      throw new UnauthorizedException('Credentials are not valid');
+      return {
+        statusCode: HttpStatus.UNAUTHORIZED,
+        error: 'Credentials are not valid',
+        user: null,
+      };
 
     delete user.password;
-    const { ...userdetail } = user;
-    return { ...userdetail, token: this.getJwtToken({ id: user.id }) };
+    return {
+      statusCode: HttpStatus.OK,
+      error: null,
+      user: user,
+      token: this.getJwtToken({ id: user.id }),
+    };
   }
 
-  private getJwtToken(payload: { id: number }) {
+  private getJwtToken(payload: { id: string }) {
     const token = this.JwtService.sign(payload);
     return token;
   }
