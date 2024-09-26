@@ -6,6 +6,11 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { TareaModule } from './tarea/tarea.module';
 import { AuthModule } from './auth/auth.module';
 import { ProyectoModule } from './proyecto/proyecto.module';
+import { ProyectoUsuarioModule } from './proyectoUsuario/proyectousuario.module';
+import { TableroModule } from './tablero/tablero.module';
+import { ListaModule } from './lista/lista.module';
+import { TarjetaModule } from './tarjeta/tarjeta.module';
+import { ComentarioModule } from './comentario/comentario.module';
 
 @Module({
   imports: [
@@ -20,11 +25,16 @@ import { ProyectoModule } from './proyecto/proyecto.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    ProyectoModule,
-    AsignaturaModule,
     UsuarioModule,
+    ProyectoUsuarioModule,
+    ProyectoModule,
+    TableroModule,
+    AsignaturaModule,
     TareaModule,
     AuthModule,
+    ListaModule,
+    TarjetaModule,
+    ComentarioModule,
   ],
   controllers: [],
   providers: [],
