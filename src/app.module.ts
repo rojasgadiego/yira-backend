@@ -5,6 +5,7 @@ import { AsignaturaModule } from './asignatura/asignatura.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { TareaModule } from './tarea/tarea.module';
 import { AuthModule } from './auth/auth.module';
+import { ProyectoModule } from './proyecto/proyecto.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ProyectoModule,
     AsignaturaModule,
     UsuarioModule,
     TareaModule,

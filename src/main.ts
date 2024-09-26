@@ -15,8 +15,8 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('NottesApp')
-    .setDescription('The NottesApp API description')
+    .setTitle('YiraApp')
+    .setDescription('The YiraApp API description')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
